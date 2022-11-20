@@ -1,38 +1,32 @@
 import argparse
 import csv
 import pandas as pd
+import random
 
 # csvをデッキリストに変換する
-def create_deck(deck_df):
-    deck_list = []
-    for index, row in deck_df.iterrows():
-        # ここにカード枚数分をリストにappendする
-        import pdb; pdb.set_trace()
-    
-    return deck_list
+def create_library(df):
+    library = []
+    for x in df.itertuples():
+        for _ in range(x.amount):
+            library.append(x.card_name)
 
-# デッキリストの順番をrandomに変更する
-def shuffle_deck(deck_list):
-    pass
+    return library
+
 
 # デッキリストからカードを1枚引く
-def draw_card(deck_list):
+def draw_card(library):
     pass
 
 
 def deck_play(args):
     deck = args.deck
-
-    # with open(deck, 'r') as f:
-    #     reader = csv.reader(f, delimiter=' ')
-    #     deck_list = [row for row in reader]
     df = pd.read_csv(deck, delimiter=' ', header=0)
-    deck_list = create_deck(df)
-
-    shuffle_deck(deck_list)
-
-    # 無限ループ
-    # デッキリストからカードがなくなるまでループする
+    # デッキリストを成形
+    library = create_library(df)
+    # デッキリストの順番をrandomに変更する
+    random.shuffle(library)
+    print(library)
+    draw_card(library)
 
 
 def main():
